@@ -175,6 +175,9 @@ public static class WebApplicationBuilderExtensions
             .AddTransient<IFileRepository, FileRepository>()
             .AddTransient<IUserFileService, UserFileService>()
             .AddTransient<ISupplierService, SupplierService>()
+            .AddTransient<IMedicineCategoryService, MedicineCategoryService>()
+            .AddTransient<IMedicineTypeService, MedicineTypeService>()
+            .AddTransient<IMedicineService, MedicineService>()
             .AddTransient<IMailService, MailService>();
 
         return builder;

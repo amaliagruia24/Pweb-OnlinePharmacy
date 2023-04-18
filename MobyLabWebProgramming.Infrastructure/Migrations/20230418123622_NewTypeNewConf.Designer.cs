@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MobyLabWebProgramming.Infrastructure.Database;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MobyLabWebProgramming.Infrastructure.Migrations
 {
     [DbContext(typeof(WebAppDatabaseContext))]
-    partial class WebAppDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230418123622_NewTypeNewConf")]
+    partial class NewTypeNewConf
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,6 +63,9 @@ namespace MobyLabWebProgramming.Infrastructure.Migrations
                     b.Property<Guid>("MedicineTypeId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("OrderItemId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
@@ -76,6 +81,9 @@ namespace MobyLabWebProgramming.Infrastructure.Migrations
                         .IsUnique();
 
                     b.HasIndex("MedicineTypeId")
+                        .IsUnique();
+
+                    b.HasIndex("OrderItemId")
                         .IsUnique();
 
                     b.HasIndex("SupplierId")
@@ -154,9 +162,6 @@ namespace MobyLabWebProgramming.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("MedicineId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uuid");
 
@@ -164,9 +169,6 @@ namespace MobyLabWebProgramming.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MedicineId")
-                        .IsUnique();
 
                     b.HasIndex("OrderId");
 
@@ -213,6 +215,9 @@ namespace MobyLabWebProgramming.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -284,6 +289,12 @@ namespace MobyLabWebProgramming.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MobyLabWebProgramming.Core.Entities.OrderItem", "OrderItem")
+                        .WithOne("Medicine")
+                        .HasForeignKey("MobyLabWebProgramming.Core.Entities.Medicine", "OrderItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MobyLabWebProgramming.Core.Entities.Supplier", "Supplier")
                         .WithOne("Medicine")
                         .HasForeignKey("MobyLabWebProgramming.Core.Entities.Medicine", "SupplierId")
@@ -293,6 +304,8 @@ namespace MobyLabWebProgramming.Infrastructure.Migrations
                     b.Navigation("MedicineCategory");
 
                     b.Navigation("MedicineType");
+
+                    b.Navigation("OrderItem");
 
                     b.Navigation("Supplier");
                 });
@@ -310,19 +323,11 @@ namespace MobyLabWebProgramming.Infrastructure.Migrations
 
             modelBuilder.Entity("MobyLabWebProgramming.Core.Entities.OrderItem", b =>
                 {
-                    b.HasOne("MobyLabWebProgramming.Core.Entities.Medicine", "Medicine")
-                        .WithOne("OrderItem")
-                        .HasForeignKey("MobyLabWebProgramming.Core.Entities.OrderItem", "MedicineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MobyLabWebProgramming.Core.Entities.Order", "Order")
                         .WithMany("Items")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Medicine");
 
                     b.Navigation("Order");
                 });
@@ -336,12 +341,6 @@ namespace MobyLabWebProgramming.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MobyLabWebProgramming.Core.Entities.Medicine", b =>
-                {
-                    b.Navigation("OrderItem")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MobyLabWebProgramming.Core.Entities.MedicineCategory", b =>
@@ -359,6 +358,12 @@ namespace MobyLabWebProgramming.Infrastructure.Migrations
             modelBuilder.Entity("MobyLabWebProgramming.Core.Entities.Order", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("MobyLabWebProgramming.Core.Entities.OrderItem", b =>
+                {
+                    b.Navigation("Medicine")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MobyLabWebProgramming.Core.Entities.Supplier", b =>

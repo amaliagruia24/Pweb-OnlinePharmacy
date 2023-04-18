@@ -33,6 +33,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .IsRequired();
         builder.Property(e => e.UpdatedAt)
             .IsRequired();
-        builder.HasOne(e => e.Order).WithOne(a => a.User).HasForeignKey<Order>(m => m.UserId);
+        //builder.HasOne(e => e.Order).WithOne(a => a.User).HasForeignKey<Order>(m => m.UserId);
     }
 }

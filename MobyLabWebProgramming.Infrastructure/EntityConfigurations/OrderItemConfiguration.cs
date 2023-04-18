@@ -21,7 +21,7 @@ namespace MobyLabWebProgramming.Infrastructure.EntityConfigurations
                 .HasPrincipalKey(e => e.Id) // This specifies the referenced key in the referenced table.
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade); // This specifies the delete behavior when the referenced entity is removed.
-            builder.HasOne(e => e.Medicine).WithOne(a => a.OrderItem).HasForeignKey<Medicine>(m => m.OrderItemId);
+            builder.HasOne(e => e.Medicine).WithOne(a => a.OrderItem).HasForeignKey<OrderItem>(m => m.MedicineId);
         }
     }
 }

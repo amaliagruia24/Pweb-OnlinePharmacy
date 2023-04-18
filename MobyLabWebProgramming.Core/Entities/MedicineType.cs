@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace MobyLabWebProgramming.Core.Entities
 {
-    public class MedicineType
+    public class MedicineType : BaseEntity
     {
         public Guid Id { get; set; }
         public string TypeName { get; set; } = default!;
         public Medicine Medicine { get; set; } = default!;
-        public Guid MedicineId { get; set; }
+        //public Guid MedicineId { get; set; }
     }
 }

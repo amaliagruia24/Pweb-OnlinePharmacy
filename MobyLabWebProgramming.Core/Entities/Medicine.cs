@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MobyLabWebProgramming.Core.Entities;
 
-public class Medicine
+public class Medicine : BaseEntity
 {
     
     public Guid Id { get; set; }
@@ -26,6 +26,6 @@ public class Medicine
     public DateTime ExpiryDate { get; set; } = default!;
     public string Image { get; set; } = default!;
     public OrderItem OrderItem { get; set; } = default!;
-    public Guid OrderItemId { get; set; } = default!;
+    //public Guid OrderItemId { get; set; } = default!;
 }
 

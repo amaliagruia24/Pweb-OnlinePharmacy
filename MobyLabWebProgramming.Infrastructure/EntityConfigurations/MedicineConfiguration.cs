@@ -30,8 +30,12 @@ namespace MobyLabWebProgramming.Infrastructure.EntityConfigurations
                 .IsRequired();
             builder.Property(e => e.Quantity)
                 .IsRequired();
-            builder.HasOne(e => e.MedicineType).WithOne(a => a.Medicine).HasForeignKey<MedicineType>(m => m.MedicineId);
-            builder.HasOne(e => e.MedicineCategory).WithOne(a => a.Medicine).HasForeignKey<MedicineCategory>(m => m.MedicineId);
+            builder.Property(e => e.CreatedAt)
+                .IsRequired();
+            builder.Property(e => e.UpdatedAt)
+                .IsRequired();
+            builder.HasOne(e => e.MedicineType).WithOne(a => a.Medicine).HasForeignKey<Medicine>(m => m.MedicineTypeId);
+            builder.HasOne(e => e.MedicineCategory).WithOne(a => a.Medicine).HasForeignKey<Medicine>(m => m.MedicineCategoryId);
             builder.HasOne(e => e.Supplier).WithOne(a => a.Medicine).HasForeignKey<Medicine>(m => m.SupplierId);
 
         }

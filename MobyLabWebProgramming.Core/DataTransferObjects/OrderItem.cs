@@ -8,7 +8,7 @@ namespace MobyLabWebProgramming.Core.DataTransferObjects;
 public class OrderItem
 {
     public Guid Id { get; set; }
-    public Medicine Medicine { get; set; } = default!;
+    public MedicineDTO Medicine { get; set; } = default!;
     public OrderDTO OrderDTO { get; set; } = default!;
     public int Quantity { get; set; } = default!;
 

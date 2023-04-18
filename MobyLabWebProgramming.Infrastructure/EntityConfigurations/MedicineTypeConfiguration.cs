@@ -18,6 +18,11 @@ namespace MobyLabWebProgramming.Infrastructure.EntityConfigurations
             builder.HasKey(x => x.Id);
             builder.Property(e => e.TypeName)
                 .HasMaxLength(255).IsRequired();
+            builder.Property(e => e.CreatedAt)
+                .IsRequired();
+            builder.Property(e => e.UpdatedAt)
+                .IsRequired();
+
         }
     }
 }

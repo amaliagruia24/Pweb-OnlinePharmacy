@@ -4,53 +4,52 @@ using MobyLabWebProgramming.Core.DataTransferObjects;
 using MobyLabWebProgramming.Core.Responses;
 using MobyLabWebProgramming.Infrastructure.Authorization;
 using MobyLabWebProgramming.Infrastructure.Extensions;
-using MobyLabWebProgramming.Infrastructure.Services.Implementations;
 using MobyLabWebProgramming.Infrastructure.Services.Interfaces;
 
 namespace MobyLabWebProgramming.Backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class SupplierController : AuthorizedController
+    public class MedicineTypeController : AuthorizedController
     {
-        private readonly ISupplierService _supplierService;
-        public SupplierController(IUserService userService, ISupplierService supplierService) : base(userService)
+        private readonly IMedicineTypeService _medicineTypeService;
+
+        public MedicineTypeController(IUserService userService, IMedicineTypeService medicineTypeService) : base(userService)
         {
-            _supplierService = supplierService;
+            _medicineTypeService = medicineTypeService;
         }
 
         [Authorize]
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<RequestResponse<SupplierDTO>>> GetById([FromRoute] Guid id)
+        public async Task<ActionResult<RequestResponse<MedicineTypeDTO>>> GetById([FromRoute] Guid id)
         {
             var currentUser = await GetCurrentUser();
 
             return currentUser.Result != null ?
-                this.FromServiceResponse(await _supplierService.GetSupplier(id)) :
-                this.ErrorMessageResult<SupplierDTO>(currentUser.Error);
+                this.FromServiceResponse(await _medicineTypeService.GetMedicineType(id)) :
+                this.ErrorMessageResult<MedicineTypeDTO>(currentUser.Error);
 
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult<RequestResponse>> Add([FromBody] SupplierAddDTO supplier)
+        public async Task<ActionResult<RequestResponse>> Add([FromBody] MedicineTypeAddDTO medicineTypeAddDTO)
         {
             var currentUser = await GetCurrentUser();
 
             return currentUser.Result != null ?
-                this.FromServiceResponse(await _supplierService.AddSupplier(supplier, currentUser.Result)) :
+                this.FromServiceResponse(await _medicineTypeService.AddMedicineType(medicineTypeAddDTO, currentUser.Result)) :
                 this.ErrorMessageResult(currentUser.Error);
         }
 
-
         [Authorize]
         [HttpPut]
-        public async Task<ActionResult<RequestResponse>> Update([FromBody] SupplierDTO supplier)
+        public async Task<ActionResult<RequestResponse>> Update([FromBody] MedicineTypeDTO medicineType)
         {
             var currentUser = await GetCurrentUser();
 
             return currentUser.Result != null ?
-                this.FromServiceResponse(await _supplierService.UpdateSupplier(supplier, currentUser.Result)) :
+                this.FromServiceResponse(await _medicineTypeService.UpdateMedicineType(medicineType, currentUser.Result)) :
                 this.ErrorMessageResult(currentUser.Error);
         }
 
@@ -61,7 +60,7 @@ namespace MobyLabWebProgramming.Backend.Controllers
             var currentUser = await GetCurrentUser();
 
             return currentUser.Result != null ?
-                this.FromServiceResponse(await _supplierService.DeleteSupplier(id)) :
+                this.FromServiceResponse(await _medicineTypeService.DeleteMedicineType(id)) :
                 this.ErrorMessageResult(currentUser.Error);
         }
     }

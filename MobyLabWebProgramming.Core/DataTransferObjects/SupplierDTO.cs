@@ -13,7 +13,7 @@ public class SupplierDTO
 
     public Guid Id { get; set; }
     public string SupplierName { get; set; } = default!;
-    public Medicine Medicine { get; set; } = default!;
+    public MedicineDTO Medicine { get; set; } = default!;
 
 }
 

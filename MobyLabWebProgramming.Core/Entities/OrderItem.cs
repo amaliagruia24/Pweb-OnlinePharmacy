@@ -10,6 +10,7 @@ namespace MobyLabWebProgramming.Core.Entities
     {
         public Guid Id { get; set; }
         public Medicine Medicine { get; set; } = default!;
+        public Guid MedicineId { get; set; }
         public Order Order { get; set; } = default!;
         public int Quantity { get; set; } = default!;
         public Guid OrderId { get; set; } 

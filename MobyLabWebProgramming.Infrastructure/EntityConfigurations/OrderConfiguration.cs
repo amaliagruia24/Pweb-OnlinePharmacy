@@ -16,7 +16,7 @@ namespace MobyLabWebProgramming.Infrastructure.EntityConfigurations
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).IsRequired();
             builder.Property(e => e.OrderAmount).IsRequired();
-            //builder.HasOne(e => e.User).WithOne(a => a.Order).HasForeignKey<User>(m => m.OrderId);
+            builder.HasOne(e => e.User).WithOne(a => a.Order).HasForeignKey<Order>(m => m.UserId);
         }
     }
 }

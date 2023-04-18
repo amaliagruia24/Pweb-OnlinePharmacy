@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MobyLabWebProgramming.Core.DataTransferObjects;
 
-public class Medicine
+public class MedicineDTO 
 {
     
     public Guid Id { get; set; }
@@ -21,7 +21,7 @@ public class Medicine
     public string Image { get; set; } = default!;
     public MedicineTypeDTO MedicineType { get; set; } = default!;
     public MedicineCategoryDTO MedicineCategory { get; set; } = default!;
-
+    public SupplierDTO Supplier { get; set; } = default!;
 
 }
 

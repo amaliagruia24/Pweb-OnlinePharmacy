@@ -64,9 +64,9 @@ namespace MobyLabWebProgramming.Infrastructure.Services.Implementations
             throw new NotImplementedException();
         }
 
-        public async Task<ServiceResponse> UpdateSupplier(SupplierAddDTO supplier, UserDTO? requestingUser = null, CancellationToken cancellationToken = default)
+        public async Task<ServiceResponse> UpdateSupplier(SupplierDTO supplier, UserDTO? requestingUser = null, CancellationToken cancellationToken = default)
         {
-            var entity = await _repository.GetAsync(new SupplierSpec(supplier.SupplierName), cancellationToken);
+            var entity = await _repository.GetAsync(new SupplierSpec(supplier.Id), cancellationToken);
 
             if (entity != null)
             {

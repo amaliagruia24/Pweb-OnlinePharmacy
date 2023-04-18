@@ -20,5 +20,5 @@ public class User : BaseEntity
     /// </summary>
     public ICollection<UserFile> UserFiles { get; set; } = default!;
     public Order Order { get; set; } = default!;
-    public Guid OrderId { get; set; }
+   // public Guid OrderId { get; set; }
 }

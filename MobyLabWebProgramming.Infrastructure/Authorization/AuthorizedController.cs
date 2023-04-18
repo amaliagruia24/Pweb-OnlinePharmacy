@@ -14,9 +14,16 @@ public abstract class AuthorizedController : ControllerBase
     private UserClaims? _userClaims;
     protected readonly IUserService UserService;
     protected readonly ISupplierService SupplierService;
+    protected readonly IMedicineCategoryService MedicineCategoryService;
+    protected readonly IMedicineTypeService MedicineTypeService;
+    protected readonly IMedicineService MedicineService;
 
     protected AuthorizedController(IUserService userService) => UserService = userService;
     protected AuthorizedController(ISupplierService supplierService) => SupplierService = supplierService;
+    protected AuthorizedController(IMedicineCategoryService medicineCategoryService) => MedicineCategoryService = medicineCategoryService;
+
+    protected AuthorizedController(IMedicineTypeService medicineTypeService) => MedicineTypeService = medicineTypeService;
+    protected AuthorizedController(IMedicineService medicineService) => MedicineService = medicineService;
 
     /// <summary>
     /// This method extracts the claims from the JWT into an object.

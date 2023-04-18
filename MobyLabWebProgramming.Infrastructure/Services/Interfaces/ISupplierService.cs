@@ -16,7 +16,7 @@ namespace MobyLabWebProgramming.Infrastructure.Services.Interfaces
 
         public Task<ServiceResponse> AddSupplier(SupplierAddDTO supplier, UserDTO? requestingUser = default, CancellationToken cancellationToken = default);
 
-        public Task<ServiceResponse> UpdateSupplier(SupplierAddDTO supplier, UserDTO? requestingUser = default, CancellationToken cancellationToken = default);
+        public Task<ServiceResponse> UpdateSupplier(SupplierDTO supplier, UserDTO? requestingUser = default, CancellationToken cancellationToken = default);
 
         public Task<ServiceResponse> DeleteSupplier(Guid id, UserDTO? requestingUser = default, CancellationToken cancellationToken = default);
     }
