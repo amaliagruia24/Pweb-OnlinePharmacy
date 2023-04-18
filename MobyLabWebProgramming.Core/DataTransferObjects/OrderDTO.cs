@@ -12,6 +12,7 @@ public class OrderDTO
     
     public Guid Id { get; set; }
     public double OrderAmount { get; set; } = default!;
+    public Guid UserId { get; set; }
     public UserDTO User { get; set; } = default!;
 
 }

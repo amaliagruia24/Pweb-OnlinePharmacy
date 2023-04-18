@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MobyLabWebProgramming.Core.Entities
 {
-    public class Order
+    public class Order : BaseEntity
     {
         public Guid Id { get; set; }
         public User User { get; set; } = default!;
