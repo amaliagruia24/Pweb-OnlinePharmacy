@@ -1,4 +1,5 @@
 ﻿using MobyLabWebProgramming.Core.DataTransferObjects;
+using MobyLabWebProgramming.Core.Requests;
 using MobyLabWebProgramming.Core.Responses;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace MobyLabWebProgramming.Infrastructure.Services.Interfaces
     {
         public Task<ServiceResponse<MedicineDTO>> GetMedicine(Guid id, CancellationToken cancellationToken = default);
 
-        public Task<ServiceResponse<MedicineDTO>> GetMedicines(CancellationToken cancellationToken = default);
+        public Task<ServiceResponse<PagedResponse<MedicineDTO>>> GetMedicines(PaginationSearchQueryParams pagination, CancellationToken cancellationToken = default);
 
         public Task<ServiceResponse> AddMedicine(MedicineAddDTO medicine, UserDTO? requestingUser = default, CancellationToken cancellationToken = default);
 

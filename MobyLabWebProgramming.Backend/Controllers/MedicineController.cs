@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MobyLabWebProgramming.Core.DataTransferObjects;
+using MobyLabWebProgramming.Core.Requests;
 using MobyLabWebProgramming.Core.Responses;
 using MobyLabWebProgramming.Infrastructure.Authorization;
 using MobyLabWebProgramming.Infrastructure.Extensions;
@@ -29,6 +30,18 @@ namespace MobyLabWebProgramming.Backend.Controllers
                 this.FromServiceResponse(await _medicineService.GetMedicine(id)) :
                 this.ErrorMessageResult<MedicineDTO>(currentUser.Error);
 
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<RequestResponse<PagedResponse<MedicineDTO>>>> GetPage([FromQuery] PaginationSearchQueryParams pagination) // The FromQuery attribute will bind the parameters matching the names of
+                                                                                                                                             // the PaginationSearchQueryParams properties to the object in the method parameter.
+        {
+            var currentUser = await GetCurrentUser();
+
+            return currentUser.Result != null ?
+                this.FromServiceResponse(await _medicineService.GetMedicines(pagination)) :
+                this.ErrorMessageResult<PagedResponse<MedicineDTO>>(currentUser.Error);
         }
 
         [Authorize]

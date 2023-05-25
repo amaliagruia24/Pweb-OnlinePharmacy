@@ -2,6 +2,7 @@
 using MobyLabWebProgramming.Core.Entities;
 using MobyLabWebProgramming.Core.Enums;
 using MobyLabWebProgramming.Core.Errors;
+using MobyLabWebProgramming.Core.Requests;
 using MobyLabWebProgramming.Core.Responses;
 using MobyLabWebProgramming.Core.Specifications;
 using MobyLabWebProgramming.Infrastructure.Database;
@@ -94,9 +95,11 @@ namespace MobyLabWebProgramming.Infrastructure.Services.Implementations
                 ServiceResponse<MedicineDTO>.FromError(new(System.Net.HttpStatusCode.Conflict, "The medicine doesn't exist"));
         }
 
-        public Task<ServiceResponse<MedicineDTO>> GetMedicines(CancellationToken cancellationToken = default)
+        public async Task<ServiceResponse<PagedResponse<MedicineDTO>>> GetMedicines(PaginationSearchQueryParams pagination, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var result = await _repository.PageAsync(pagination, new MedicineProjectionSpec(pagination.Search), cancellationToken); // Use the specification and pagination API to get only some entities from the database.
+
+            return ServiceResponse<PagedResponse<MedicineDTO>>.ForSuccess(result);
         }
 
         public async Task<ServiceResponse> UpdateMedicine(MedicineDTO medicine, UserDTO? requestingUser = null, CancellationToken cancellationToken = default)
